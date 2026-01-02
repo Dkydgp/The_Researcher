@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily | The Researcher</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/style_pro.css">
+    <link rel="stylesheet" href="/static/danelfin_styles.css">
+    <style>
+        .timeframe-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 5px;
+            border-radius: 12px;
+            width: fit-content;
+        }
+
+        .timeframe-btn {
+            padding: 8px 24px;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .timeframe-btn.active {
+            background: var(--accent-color);
+            color: white;
+            box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.3);
+        }
+
+        .timeframe-btn:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Navigation -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-flask"></i>
+                <span>THE <span class="highlight">RESEARCHER</span></span>
+            </div>
+
+            <div class="nav-links">
+                <a href="/home" class="nav-item">
+                    <i class="fa-solid fa-home"></i> Home
+                </a>
+                <a href="/daily" class="nav-item active">
+                    <i class="fa-solid fa-sun"></i> Daily View
+                </a>
+                <a href="/weekly" class="nav-item">
+                    <i class="fa-solid fa-calendar-week"></i> Weekly View
+                </a>
+                <a href="/monthly" class="nav-item">
+                    <i class="fa-solid fa-calendar-days"></i> Monthly View
+                </a>
+                <a href="/blog" class="nav-item">
+                    <i class="fa-solid fa-newspaper"></i> Market Insights
+                </a>
+                <a href="/archive" class="nav-item">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Archive
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-bar">
+                <div class="page-title">
+                    <h1 id="view-title">Daily Market Outlook</h1>
+                    <p id="view-subtitle">Intraday & Short-term Predictions (1-2 Days)</p>
+                </div>
+            </header>
+
+            <!-- Market Context Bar -->
+            <div id="market-context-bar" class="market-context-bar">
+                <!-- Injected via JS -->
+            </div>
+
+
+
+            <!-- Dashboard Grid -->
+            <div id="dashboard-grid" class="cards-grid">
+                <!-- Cards injected via JS -->
+                <div class="loader">
+                    <div class="spinner"></div>
+                    <p>Loading Daily Forecasts...</p>
+                </div>
+            </div>
+            <!-- Archive removed (moved to /archive) -->
+        </main>
+    </div>
+
+    <script src="/static/danelfin_ui.js?v=11"></script>
+    <script src="/static/daily.js?v=10"></script>
+</body>
+
+</html>

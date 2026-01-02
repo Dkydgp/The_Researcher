@@ -1,0 +1,195 @@
+================================================================================
+DAILY BTST PREDICTION - ANALYSIS FACTORS DOCUMENTATION
+================================================================================
+Last Updated: December 30, 2025
+
+This document lists ALL factors considered during Daily BTST prediction analysis.
+
+================================================================================
+PART 1: DATA INPUTS (What the AI receives)
+================================================================================
+
+1. PRICE DATA
+   - Current closing price
+   - Current volume
+   - 200 days of historical price data (extended from 30 days)
+
+2. TECHNICAL INDICATORS
+   - RSI (14-day) - Relative Strength Index
+   - MACD - Moving Average Convergence Divergence
+   - MACD Signal Line
+   - MACD Histogram
+   - Bollinger Bands (Upper, Middle, Lower)
+   - Volume Ratio (current volume / average volume)
+   - SMA-20 (20-day Simple Moving Average)
+
+3. MARKET CONTEXT
+   - NIFTY Trend (BULLISH/BEARISH/SIDEWAYS)
+   - Volatility Regime (LOW/MEDIUM/HIGH)
+   - S&P 500 Change (global market influence)
+   - USD/INR rate
+   - Crude Oil price
+
+4. NEWS & SENTIMENT
+   - **AI-Driven Analysis**: The model reads raw summaries of top 20+ articles.
+   - Sources: Economic Times, MoneyControl, **Bloomberg, Investing.com**.
+   - Input: Headlines + Full Summaries (not just keywords).
+
+5. CHART PATTERNS
+   - Support levels
+   - Resistance levels
+   - Detected patterns (double top, head-shoulders, triangles, etc.)
+
+6. HISTORICAL PATTERN MATCHING
+   - Similar scenarios from past year
+   - Win rate in similar conditions
+   - Average outcome in similar conditions
+
+7. FUNDAMENTALS
+   - P/E Ratio
+   - ROCE (Return on Capital Employed)
+   - ROE (Return on Equity)
+   - Debt to Equity ratio
+
+================================================================================
+NEW DATA SOURCES (Added December 30, 2025)
+================================================================================
+
+8. SECTOR-WISE SENTIMENT
+   - Sector classification (IT_SERVICES, BANKING, NBFC, TELECOM, FMCG, etc.)
+   - **AI Analysis**: Model analyzes sector news summaries to determine trend.
+   - Output: BULLISH / BEARISH / NEUTRAL
+
+9. MUTUAL FUND / INSTITUTIONAL DATA
+   - **AI Analysis**: Model analyzes news on bulk deals, stake changes.
+   - Output: ACCUMULATING / DISTRIBUTING / NEUTRAL
+
+10. QUARTERLY RESULTS (Last 4 Quarters)
+    - **AI Analysis**: Model analyzes earnings reports and YoY growth.
+    - Output: POSITIVE / NEGATIVE / NEUTRAL
+
+11. HISTORICAL SEASONALITY (Same period last 2 years)
+    - Seasonal pattern (HISTORICALLY_BULLISH/BEARISH/MIXED/NO_DATA)
+    - Average historical return for this month
+
+================================================================================
+PART 2: AI ANALYSIS FRAMEWORK (Step-by-Step Reasoning)
+================================================================================
+
+The AI must complete ALL these steps before making a prediction:
+
+STEP 1: TECHNICAL SCORE (Rate 1-10)
+   - RSI Signal Strength (Overbought/Oversold/Neutral)
+   - MACD Signal Strength (Bullish/Bearish/Neutral)
+   - Volume Confirmation (Strong/Average/Weak)
+   - Overall Technical Score
+
+STEP 2: MARKET CONTEXT SCORE (Rate 1-10)
+   - Is NIFTY trend supportive?
+   - Are global markets favorable?
+   - Market Alignment Score
+
+STEP 3: NEWS SENTIMENT SCORE (Rate 1-10)
+   - AI reads summaries and assigns a sentiment score.
+   - 1 = Extremely Bearish, 10 = Extremely Bullish.
+
+STEP 4: SIGNAL CONFLUENCE CHECK
+   - Does Technical agree with Market Context? (YES/NO)
+   - Does Technical agree with News Sentiment? (YES/NO)
+   - Does Sector Sentiment support direction? (YES/NO/NEUTRAL)
+   - Does MF Activity support direction? (YES/NO/NEUTRAL)
+   - Does Quarterly trend support? (YES/NO)
+   - Does Historical seasonality support? (YES/NO/NEUTRAL)
+   - Number of agreeing signals: X/6
+   
+   **CRITICAL UPDATE**: NEUTRAL signals are IGNORED. They do NOT count as conflicts.
+
+STEP 5: CONFLICT RESOLUTION
+   - Weight NEWS SENTIMENT heavily (Breaking news overrides technicals).
+   - Weight SECTOR trends higher than generic noise.
+   - If signals are split (e.g. 3 vs 3 active signals), predict NEUTRAL.
+
+STEP 6: FINAL PREDICTION
+   - Direction: UP / DOWN / NEUTRAL
+   - Confidence: 1-10
+
+================================================================================
+PART 3: CONFIDENCE CALIBRATION (Post-AI Adjustments)
+================================================================================
+
+After AI generates prediction, these adjustments are applied:
+
+| Factor                    | Adjustment | Condition                          |
+|---------------------------|------------|-------------------------------------|
+| Baseline                  | 0          | No baseline penalty applied         |
+| Match: Perfect (6/6)      | **+2**     | All active signals agree            |
+| Match: High (5/6)         | **+1**     | Strong consensus                    |
+| Match: Weak (<4/6)        | **-2**     | Major conflict                      |
+| **News: Strong Positive** | **+1**     | If sentiment_score >= 8             |
+| **News: Conflict**        | **-2**     | Predicting UP vs Bad News (<3)      |
+| **News: Confirmation**    | **+1**     | Predicting DOWN vs Bad News         |
+| Low Volume                | -1         | If volume_ratio < 0.5x              |
+| High Volume               | +1         | If volume_ratio > 1.5x              |
+| RSI Extreme (Contra)      | -1         | Predicting continuation at extremes |
+| Historical Accuracy       | +/-        | Self-learning adjustment            |
+
+Final Confidence = Clamped between 1 and 10
+
+================================================================================
+PART 4: AI OUTPUT FIELDS
+================================================================================
+
+The AI returns these fields for each daily prediction:
+
+- timeframe: "DAILY"
+- direction: "UP" | "DOWN" | "NEUTRAL"
+- confidence_score: 1-10
+- probability: 0.0-1.0
+- rationale: Detailed narrative explaining the decision
+- key_factors: comma-separated key factors
+- technical_score: AI's technical analysis score
+- market_score: AI's market context score
+- sentiment_score: AI's sentiment score (derived from raw news)
+- signals_aligned: count of aligned signals (0-6)
+
+================================================================================
+PART 5: IMPORTANT RULES ENFORCED
+================================================================================
+
+1. REALISM CONSTRAINT
+   - Daily moves for Nifty 50 stocks rarely exceed 2.5%
+
+2. NEWS VETO POWER
+   - Strong negative news (Fraud, crash, poor earnings) overrides technical buy signals. "Don't catch a falling knife".
+
+3. VOLUME CONFIRMATION
+   - Low volume signals are considered unreliable.
+
+4. SECTOR ALIGNMENT
+   - Prediction should align with sector sentiment.
+
+5. AI JUDGMENT
+   - The AI is the final arbiter of sentiment, replacing rigid keyword counting.
+
+================================================================================
+SUMMARY: TOTAL FACTORS ANALYZED
+================================================================================
+
+Category                    | Factors Count
+----------------------------|---------------
+Technical Indicators        | 7
+Market Context             | 5
+News & Sentiment           | 3
+Chart Patterns             | 3
+Historical Matching        | 4
+Fundamentals               | 4
+Sector Sentiment (NEW)     | 4
+Mutual Fund Data (NEW)     | 3
+Quarterly Results (NEW)    | 3
+Seasonality (NEW)          | 5
+----------------------------|---------------
+TOTAL                      | 41 FACTORS
+
+================================================================================
+END OF DOCUMENT
+================================================================================

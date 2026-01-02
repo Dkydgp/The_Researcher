@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Insights | The Researcher</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/style_pro.css">
+    <style>
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .blog-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(20px);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), var(--glass-glow);
+            border-color: var(--accent-blue);
+            background: var(--bg-card-hover);
+        }
+
+        .blog-image {
+            height: 200px;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .blog-image i {
+            font-size: 4rem;
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            opacity: 0.8;
+        }
+
+        .blog-content {
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .blog-category {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+            color: var(--accent-cyan);
+        }
+
+        .blog-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+            color: var(--text-primary);
+        }
+
+        .blog-excerpt {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .read-more {
+            margin-top: auto;
+            color: var(--accent-blue);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.3s;
+        }
+
+        .read-more:hover {
+            gap: 12px;
+        }
+
+        .hero-section {
+            padding: 4rem 2rem;
+            text-align: center;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 2rem;
+        }
+
+        .hero-title {
+            /* Using style_pro.css class */
+            font-size: 3rem;
+            font-weight: 800;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Navigation -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-flask"></i>
+                <span>THE <span class="highlight">RESEARCHER</span></span>
+            </div>
+
+            <div class="nav-links">
+                <a href="/home" class="nav-item">
+                    <i class="fa-solid fa-home"></i> Home
+                </a>
+                <a href="/daily" class="nav-item">
+                    <i class="fa-solid fa-sun"></i> Daily View
+                </a>
+                <a href="/weekly" class="nav-item">
+                    <i class="fa-solid fa-calendar-week"></i> Weekly View
+                </a>
+                <a href="/monthly" class="nav-item">
+                    <i class="fa-solid fa-calendar-days"></i> Monthly View
+                </a>
+                <a href="/blog" class="nav-item active">
+                    <i class="fa-solid fa-newspaper"></i> Market Insights
+                </a>
+                <a href="/archive" class="nav-item">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Archive
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="hero-section" style="border: none; background: transparent; padding-top: 2rem;">
+                <h1 class="hero-title">Market Insights</h1>
+                <p class="hero-subtitle">
+                    Latest research, educational content, and deep dives into our AI Methodology
+                </p>
+            </div>
+
+            <div class="cards-grid blog-grid">
+                <!-- Article 1: JIO Financial Report -->
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-category">Equity Research</span>
+                        <h2 class="blog-title">JIO Financial Services: The Architecture of a Financial Superpower</h2>
+                        <p class="blog-excerpt">
+                            Comprehensive deep-dive into JFS's strategic pivot, the BlackRock JV, and the "Super App"
+                            ecosystem. Is the current valuation justified?
+                        </p>
+                        <a href="/article/jio-report" class="read-more">Read Full Analysis <i
+                                class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 2: educational -->
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-category">Education</span>
+                        <h2 class="blog-title">Understanding the 6-Signal Confluence System</h2>
+                        <p class="blog-excerpt">
+                            Why do we ignore "Neutral" signals? Learn how our rigorous confluence logic rewards
+                            alignment between Technicals, Fundamentals, and Institutional Activity to assign high
+                            confidence scores.
+                        </p>
+                        <a href="#" class="read-more">Learn More <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 3: Market Update -->
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-category">Market Outlook</span>
+                        <h2 class="blog-title">NIFTY 50: Sector Rotation & 2026 Forecast</h2>
+                        <p class="blog-excerpt">
+                            An in-depth look at the shifting tides in IT and Banking sectors, analyzed through our
+                            multi-timeframe lens. What does the volatility regime suggest for Q1?
+                        </p>
+                        <a href="#" class="read-more">View Forecast <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <!-- Article 4: Risk Management -->
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-category">Risk Management</span>
+                        <h2 class="blog-title">The Art of Position Sizing</h2>
+                        <p class="blog-excerpt">
+                            Even High Confidence trades can fail. Learn how to use our Risk Levels and Stop Loss
+                            suggestions to protect your capital while maximizing BTST returns.
+                        </p>
+                        <a href="#" class="read-more">Read Strategy <i class="fa-solid fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/danelfin_ui.js?v=11"></script>
+</body>
+
+</html>

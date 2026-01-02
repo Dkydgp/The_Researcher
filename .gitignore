@@ -1,0 +1,26 @@
+# Secrets
+.env
+.env.local
+
+# Database
+*.db
+*.sqlite3
+chroma_db/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+
+# Data (Optional: Uncomment to exclude CSVs if they are large)
+# *.csv
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log

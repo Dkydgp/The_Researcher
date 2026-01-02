@@ -1,0 +1,335 @@
+# Stock Prediction Data Sources & Analysis Framework
+# Complete list of all indicators and data being checked for AI predictions
+
+## 🌍 GLOBAL MARKET CONTEXT
+- S&P 500 Index (^GSPC)
+  └─ Close price
+  └─ Daily percentage change
+  └─ Impact: US market sentiment affects Indian stocks
+
+- Crude Oil (CL=F - WTI)
+  └─ Price per barrel
+  └─ Impact: Energy costs affect corporate margins
+
+- USD/INR Exchange Rate
+  └─ Currency exchange rate
+  └─ Impact: Export competitiveness, import costs
+
+- Market Regime Detection
+  └─ NIFTY Trend: BULL / BEAR / SIDEWAYS
+      └─ Based on 3-month (60-day) NIFTY performance
+      └─ BULL if +10% or more
+      └─ BEAR if -10% or less
+      └─ SIDEWAYS otherwise
+  └─ Volatility Regime: HIGH / MEDIUM / LOW
+      └─ Based on 30-day rolling standard deviation
+      └─ HIGH if std dev > 2%
+      └─ MEDIUM if 1-2%
+      └─ LOW if < 1%
+
+## 📊 ADVANCED TECHNICAL INDICATORS
+
+### RSI (Relative Strength Index)
+- Period: 14 days
+- Range: 0-100
+- Signals:
+  └─ > 70: OVERBOUGHT (potential sell signal)
+  └─ < 30: OVERSOLD (potential buy signal)
+  └─ 30-70: NEUTRAL
+- Calculation: Based on average gains vs losses over 14 days
+
+### MACD (Moving Average Convergence Divergence)
+- Fast EMA: 12 periods
+- Slow EMA: 26 periods
+- Signal Line: 9-period EMA of MACD
+- Components:
+  └─ MACD Line: Fast EMA - Slow EMA
+  └─ Signal Line: 9-day EMA of MACD
+  └─ Histogram: MACD - Signal Line
+- Signals:
+  └─ MACD > Signal: BULLISH (momentum building)
+  └─ MACD < Signal: BEARISH (momentum weakening)
+  └─ Crossovers indicate trend changes
+
+### Bollinger Bands
+- Period: 20 days
+- Standard Deviations: 2
+- Components:
+  └─ Middle Band: 20-day Simple Moving Average (SMA)
+  └─ Upper Band: Middle + (2 × std dev)
+  └─ Lower Band: Middle - (2 × std dev)
+- Analysis:
+  └─ Price position within bands (%)
+  └─ Price near upper band: Overbought
+  └─ Price near lower band: Oversold
+  └─ Band width indicates volatility
+
+### Volume Analysis
+- 20-day Volume Moving Average
+- Current volume ratio vs average
+- Signals:
+  └─ Volume > 1.5x average: Strong conviction in price move
+  └─ Volume < 0.5x average: Weak/unconvincing move
+  └─ Used to CONFIRM or QUESTION price movements
+
+### Simple Moving Average (SMA)
+- Period: 20 days
+- Trend Signal:
+  └─ Price > SMA: BULLISH trend
+  └─ Price < SMA: BEARISH trend
+  └─ Distance from SMA indicates trend strength
+
+## 💰 FUNDAMENTAL METRICS
+
+### Current Fundamentals (from Screener.in)
+- P/E Ratio (Price-to-Earnings)
+  └─ Valuation metric
+  └─ Compared against sector average
+  └─ Higher P/E = more expensive / higher growth expectations
+
+- ROCE (Return on Capital Employed)
+  └─ Profitability metric (%)
+  └─ Measures how efficiently company uses capital
+  └─ Higher ROCE = better capital efficiency
+
+### Future Enhancements (Not Yet Implemented)
+- Quarterly Earnings Growth (YoY %)
+- Debt-to-Equity Ratio
+- Operating Margin
+- Net Profit Margin
+- Sector Average Comparisons
+
+## 📰 NEWS & SENTIMENT ANALYSIS
+
+### News Sources
+- RSS feeds from major financial portals
+- Filtered specifically for each company using:
+  └─ Keyword matching
+  └─ Semantic similarity search
+  └─ Company-specific topics
+
+### Current News Analysis
+- Latest 5 business news articles per stock
+- Social media momentum tracking (retail sentiment)
+- Time-weighted: Recent news has more impact
+
+### Future Enhancements (Not Yet Implemented)
+- Sentiment scoring: Positive / Negative / Neutral
+- Weight last 3 days news 2x more heavily
+- High-impact event flagging (earnings, CEO changes, mergers)
+
+## 📈 PRICE DATA
+
+### Historical Price Data
+- Last 30 days of daily prices
+- Components:
+  └─ Open price
+  └─ High price
+  └─ Low price
+  └─ Close price
+  └─ Volume
+
+### Used For
+- Technical indicator calculations
+- Trend identification
+- Support/resistance levels
+- Pattern recognition
+
+## 🧠 AI ANALYSIS FRAMEWORK
+
+The AI considers 6 professional investment theories:
+
+1. **Global Macro Impact**
+   └─ How do S&P 500, oil prices, USD/INR affect this stock?
+   └─ Currency strength impacts exporters vs importers differently
+
+2. **Technical Confluence**  
+   └─ Do RSI, MACD, and Bollinger Bands agree?
+   └─ Multiple indicators confirming = stronger signal
+   └─ Divergence = uncertainty, lower confidence
+
+3. **Market Regime Adjustment**
+   └─ Behavior differs in BULL vs BEAR markets
+   └─ HIGH volatility = wider expected ranges
+   └─ Adjust confidence based on regime
+
+4. **Volume Confirmation**
+   └─ Price moves WITH volume = trustworthy
+   └─ Price moves WITHOUT volume = suspect
+   └─ Volume validates or questions technical signals
+
+5. **Sentiment vs Fundamentals**
+   └─ News catalysts aligned with technicals?
+   └─ Positive news + bullish technicals = strong UP
+   └─ Negative news despite good fundamentals = caution
+
+6. **Mean Reversion vs Momentum**
+   └─ Is stock trending (ride momentum)?
+   └─ Or range-bound (bet on reversion to mean)?
+   └─ Bollinger Bands + RSI help identify
+
+## 📋 PREDICTION OUTPUT FORMAT
+
+### Multi-Timeframe Predictions
+
+**Weekly Outlook (5 trading days)**
+- Trend: UP / DOWN / NEUTRAL
+- Range: Minimum to Maximum % move expected
+- Example: UP, -1% to +5%
+
+**Daily Prediction (Next trading day)**
+- Direction: UP / DOWN / NEUTRAL
+- Probability: 0.0 to 1.0 (0% to 100% chance)
+- Range: Minimum to Maximum % move expected
+- Example: UP (65% probability), +0.5% to +2.5%
+
+**Confidence Score**
+- Scale: 1 to 10
+- Factors affecting confidence:
+  └─ Signal strength (all indicators agree vs diverge)
+  └─ Market uncertainty (volatility regime)
+  └─ Self-learning adjustment (past accuracy)
+  └─ Data quality and completeness
+
+**Rationale**
+- 2-3 sentence explanation
+- Must reference:
+  └─ Global market context (S&P, oil, etc.)
+  └─ Technical signals (RSI, MACD, BB position)
+  └─ Fundamental or news factors
+- Example: "S&P 500 rallying (+0.8%), RSI at 62 (neutral-bullish), 
+  MACD showing bullish crossover. Oil prices stable and volume 
+  1.2x average confirms upward momentum in BULL/MEDIUM regime."
+
+## 🧠 SELF-LEARNING SYSTEM
+
+### Active Learning Loop
+1. **Backfill Actual Results**
+   └─ Update predictions with actual open/close prices
+   └─ Compare predicted direction vs actual direction
+
+2. **Evaluate Accuracy**
+   └─ Was prediction correct? (direction match)
+   └─ Calculate error margin (% difference)
+   └─ Assign accuracy score (0-1)
+
+3. **Calculate Rolling Performance**
+   └─ Last 10 predictions per stock
+   └─ Accuracy rate (% correct)
+   └─ Average confidence vs actual accuracy
+
+4. **Adjust Future Confidence**
+   └─ If accuracy > 70%: BOOST confidence (+1 to +2)
+   └─ If accuracy < 50%: REDUCE confidence (-1 to -2)
+   └─ Dynamic adjustment per stock
+
+### Future Enhancement: Streak-Based Learning
+- Track consecutive wins/losses
+- After 5+ wins: Boost confidence by 20%
+- After 3+ losses: Reduce confidence by 30%
+- Reset on direction change
+
+## 📊 DATA SOURCES
+
+### Live Data Providers
+1. **Yahoo Finance API (yfinance)**
+   └─ Stock prices (NSE: .NS suffix)
+   └─ Index prices (^NSEI, ^BSESN)
+   └─ S&P 500 (^GSPC)
+   └─ Crude Oil (CL=F)
+   └─ USD/INR (INR=X)
+
+2. **Screener.in**
+   └─ Fundamental metrics (P/E, ROCE)
+   └─ Corporate data
+
+3. **RSS News Feeds**
+   └─ MoneyControl
+   └─ Economic Times
+   └─ Other financial news sources
+
+### Database Storage
+- **stock_market.db**
+  └─ stock_daily_prices
+  └─ stock_fundamentals
+  └─ technical_indicators (NEW)
+  └─ market_context (NEW)
+
+- **predictions.db**
+  └─ prediction_history
+  └─ prediction_performance
+
+- **ChromaDB (Vector Database)**
+  └─ top10_nifty_news (filtered news)
+
+## 🎯 STOCKS & INDICES COVERED
+
+### 10 NIFTY Stocks
+1. Reliance Industries (RELIANCE.NS)
+2. TCS (TCS.NS)
+3. HDFC Bank (HDFCBANK.NS)
+4. Infosys (INFY.NS)
+5. ICICI Bank (ICICIBANK.NS)
+6. Bharti Airtel (BHARTIARTL.NS)
+7. ITC (ITC.NS)
+8. Wipro (WIPRO.NS)
+9. HCL Technologies (HCLTECH.NS)
+10. Bajaj Finance (BAJFINANCE.NS)
+
+### 2 Market Indices
+1. NIFTY 50 (^NSEI)
+2. SENSEX (^BSESN)
+
+## 📅 UPDATE FREQUENCY
+
+- **News**: Real-time via RSS feeds
+- **Prices**: Daily (end of day)
+- **Technical Indicators**: Calculated after each price update
+- **Market Context**: Daily (global markets)
+- **AI Predictions**: Once per day (for next trading day)
+- **Performance Evaluation**: Daily (when actual results available)
+
+## 🔄 PREDICTION PIPELINE SEQUENCE
+
+1. Fetch latest news → Filter for companies
+2. Fetch global market context (S&P, Oil, USD/INR, Regime)
+3. Fetch stock prices → Calculate technical indicators
+4. Fetch fundamentals
+5. Update historical prediction outcomes
+6. Evaluate prediction accuracy → Adjust confidence
+7. Generate new AI predictions using ALL above data
+8. Save predictions to database
+9. Serve via API to frontend dashboard
+
+## 💡 KEY DIFFERENTIATORS
+
+What makes these predictions institutional-grade:
+
+✅ **Multi-dimensional Analysis**
+   - Not just one indicator, but 15+ data points
+   
+✅ **Global Context Awareness**
+   - Considers US markets, commodities, currency
+
+✅ **Regime-Aware**
+   - Adjusts behavior based on market conditions
+
+✅ **Self-Learning**
+   - Improves based on actual performance
+
+✅ **Probabilistic**
+   - Provides ranges and probabilities, not just point predictions
+
+✅ **Multi-Time frame**
+   - Both weekly trend AND daily precision
+
+✅ **Volume-Confirmed**
+   - Validates price moves with volume data
+
+✅ **Fundamental-Technical Fusion**
+   - Combines both analysis types
+
+---
+
+Last Updated: 2025-12-26
+Model: Gemini 2.5 Flash (or latest available)

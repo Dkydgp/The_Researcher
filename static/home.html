@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Researcher - AI Stock Analysis</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/style_pro.css">
+    <style>
+        .hero-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            /* Animation handled in style_pro.css */
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .section {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(20px);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .confidence-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .confidence-item {
+            background: var(--glass-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .confidence-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .methodology-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .method-card {
+            background: var(--glass-bg);
+            padding: 1.75rem;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s;
+        }
+
+        .method-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), var(--glass-glow);
+            background: var(--bg-card-hover);
+        }
+
+        .method-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .method-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 0.75rem 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-list i {
+            color: var(--accent-blue);
+            font-size: 1.1rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--gradient-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px rgba(59, 130, 246, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Navigation -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-flask"></i>
+                <span>THE <span class="highlight">RESEARCHER</span></span>
+            </div>
+
+            <div class="nav-links">
+                <a href="/home" class="nav-item active">
+                    <i class="fa-solid fa-home"></i> Home
+                </a>
+                <a href="/daily" class="nav-item">
+                    <i class="fa-solid fa-sun"></i> Daily View
+                </a>
+                <a href="/weekly" class="nav-item">
+                    <i class="fa-solid fa-calendar-week"></i> Weekly View
+                </a>
+                <a href="/monthly" class="nav-item">
+                    <i class="fa-solid fa-calendar-days"></i> Monthly View
+                </a>
+                <a href="/blog" class="nav-item">
+                    <i class="fa-solid fa-newspaper"></i> Market Insights
+                </a>
+                <a href="/archive" class="nav-item">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Archive
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <h1 class="hero-title">THE RESEARCHER</h1>
+                <p class="hero-subtitle">
+                    AI-Powered Stock Market Analysis combining
+                    <span style="color: var(--accent-cyan); font-weight: 600;">Technical Analysis</span>,
+                    <span style="color: var(--accent-green); font-weight: 600;">Fundamental Research</span>,
+                    <span style="color: var(--accent-purple); font-weight: 600;">Real-Time News Analysis</span>, and
+                    <span style="color: var(--accent-amber); font-weight: 600;">Advanced Machine Learning</span>
+                    for Data-Driven Investment Insights
+                </p>
+                <a href="/daily" class="cta-button">
+                    <i class="fa-solid fa-chart-line"></i> View Analysis
+                </a>
+            </div>
+
+            <!-- Today's Accuracy Metrics -->
+            <div id="today-metrics-panel" style="margin-bottom: 3rem; display: block;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                    <div class="section" style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Today's
+                            Sentiment Accuracy</div>
+                        <div id="today-sentiment-accuracy"
+                            style="font-size: 2.5rem; font-weight: 700; background: var(--gradient-blue); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                            --%</div>
+                        <div id="today-sentiment-total"
+                            style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.3rem;">0 stocks</div>
+                    </div>
+                    <div class="section" style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Price Move
+                            Accuracy</div>
+                        <div id="today-price-accuracy"
+                            style="font-size: 2.5rem; font-weight: 700; color: var(--accent-green);">--%</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.3rem;">±0.5%
+                            tolerance</div>
+                    </div>
+                    <div class="section" style="text-align: center; padding: 2rem;">
+                        <div style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.5rem;">High
+                            Confidence Accuracy</div>
+                        <div id="today-high-conf"
+                            style="font-size: 2.5rem; font-weight: 700; color: var(--accent-amber);">--%</div>
+                        <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.3rem;">Confidence
+                            7-10</div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <!-- Confidence Level Accuracy Chart -->
+    <div class="section" style="margin-bottom: 3rem; padding: 2rem;">
+        <h3 style="margin-bottom: 1.5rem; font-size: 1.25rem; display: flex; align-items: center; gap: 10px;">
+            <i class="fa-solid fa-chart-bar" style="color: var(--accent-blue);"></i>
+            Accuracy by Confidence Level
+        </h3>
+        <div style="display: grid; gap: 1rem;">
+            <div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem;">
+                    <span style="color: var(--text-secondary);">High Confidence (7-10)</span>
+                    <span id="chart-high-conf" style="font-weight: 600; color: var(--accent-green);">--%</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.05); height: 12px; border-radius: 6px; overflow: hidden;">
+                    <div id="chart-high-bar"
+                        style="background: linear-gradient(90deg, #22c55e, #10b981); height: 100%; width: 0%; transition: width 0.8s ease;">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem;">
+                    <span style="color: var(--text-secondary);">Medium Confidence (5-6)</span>
+                    <span id="chart-medium-conf" style="font-weight: 600; color: var(--accent-amber);">--%</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.05); height: 12px; border-radius: 6px; overflow: hidden;">
+                    <div id="chart-medium-bar"
+                        style="background: linear-gradient(90deg, #fbbf24, #f59e0b); height: 100%; width: 0%; transition: width 0.8s ease;">
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.95rem;">
+                    <span style="color: var(--text-secondary);">Low Confidence (1-4)</span>
+                    <span id="chart-low-conf" style="font-weight: 600; color: var(--accent-red);">--%</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.05); height: 12px; border-radius: 6px; overflow: hidden;">
+                    <div id="chart-low-bar"
+                        style="background: linear-gradient(90deg, #ef4444, #dc2626); height: 100%; width: 0%; transition: width 0.8s ease;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <div class="section">
+        <h2 class="section-title">
+            <i class="fa-solid fa-lightbulb"></i> About The Project
+        </h2>
+        <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem;">
+            <strong style="color: var(--text-primary)">The Researcher</strong> is an advanced AI-driven stock
+            analysis platform
+            that analyzes market data across multiple dimensions to provide actionable investment insights.
+            By combining technical indicators, fundamental analysis, sentiment analysis from news sources,
+            and historical pattern recognition, we generate insights for <strong style="color: var(--accent-blue)">10
+                top NIFTY stocks</strong>
+            and <strong style="color: var(--accent-blue)">3 major indices</strong> across daily, weekly, and
+            monthly timeframes.
+        </p>
+        <br>
+        <p style="color: var(--text-secondary); line-height: 1.8; font-size: 1.05rem;">
+            Our platform leverages Google's Gemini AI model to process **41 unique data points** per stock,
+            including real-time news from **Bloomberg & Investing.com**, institutional activity, and sector trends.
+            We use a rigorous **6-Signal Confluence System** to generate high-confidence predictions with strict risk
+            management.
+        </p>
+    </div>
+
+    <!-- Confidence Levels Section -->
+    <div class="section">
+        <h2 class="section-title">
+            <i class="fa-solid fa-gauge-high"></i> Understanding Confidence Levels
+        </h2>
+        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+            Our AI assigns a confidence score (0-10) to each analysis based on data quality,
+            pattern strength, and market conditions:
+        </p>
+
+        <div class="confidence-grid">
+            <div class="confidence-item">
+                <div class="confidence-badge" style="color: var(--accent-green);">
+                    <i class="fa-solid fa-circle-check"></i> HIGH (7-10)
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                    Strong data signals, clear patterns, and favorable market conditions.
+                    High probability of accurate analysis.
+                </p>
+            </div>
+
+            <div class="confidence-item">
+                <div class="confidence-badge" style="color: var(--accent-amber);">
+                    <i class="fa-solid fa-circle-exclamation"></i> MEDIUM (5-6)
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                    Moderate signals with some conflicting indicators.
+                    Reasonable accuracy expected but requires careful monitoring.
+                </p>
+            </div>
+
+            <div class="confidence-item">
+                <div class="confidence-badge" style="color: var(--accent-red);">
+                    <i class="fa-solid fa-triangle-exclamation"></i> LOW (0-4)
+                </div>
+                <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6;">
+                    Weak or conflicting signals, high market volatility.
+                    Proceed with caution and perform additional research.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analytics Methodology Section -->
+    <div class="section">
+        <h2 class="section-title">
+            <i class="fa-solid fa-brain"></i> Analytics & Methodology
+        </h2>
+        <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+            Our insights are powered by a multi-layered analysis approach:
+        </p>
+
+        <div class="methodology-grid">
+            <div class="method-card">
+                <div class="method-icon">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <div class="method-title">Technical Analysis</div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                    RSI, MACD, Bollinger Bands, Moving Averages, Volume Analysis,
+                    Support/Resistance levels, and trend indicators.
+                </p>
+            </div>
+
+            <div class="method-card">
+                <div class="method-icon">
+                    <i class="fa-solid fa-building-columns"></i>
+                </div>
+                <div class="method-title">Fundamental Analysis</div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                    P/E ratios, EPS, revenue growth, debt levels, market cap,
+                    and overall financial health indicators from Screener.in.
+                </p>
+            </div>
+
+            <div class="method-card">
+                <div class="method-icon">
+                    <i class="fa-solid fa-newspaper"></i>
+                </div>
+                <div class="method-title">Sentiment Analysis</div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                    Real-time news from Moneycontrol, economic indicators,
+                    global market context (S&P 500, Crude Oil, USD/INR).
+                </p>
+            </div>
+
+            <div class="method-card"
+                style="border: 2px solid var(--accent-blue); box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);">
+                <div class="method-icon">
+                    <i class="fa-solid fa-newspaper"></i>
+                </div>
+                <div class="method-title" style="color: var(--accent-blue);">
+                    <i class="fa-solid fa-star" style="font-size: 0.7rem; margin-right: 4px;"></i>
+                    Comprehensive News Analysis
+                </div>
+                <p style="color: var(--text-primary); font-size: 0.9rem; line-height: 1.6; font-weight: 500;">
+                    <strong style="color: var(--accent-blue);">Our USP:</strong> AI directly reads full articles from
+                    **Bloomberg, Investing.com & Economic Times**.
+                    We don't just count keywords; the AI extracts nuanced sentiment like "Sector Rotation" or
+                    "Institutional Accumulation".
+                </p>
+            </div>
+
+            <div class="method-card">
+                <div class="method-icon">
+                    <i class="fa-solid fa-layer-group"></i>
+                </div>
+                <div class="method-title">Sector & Institutional</div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                    Tracks Mutual Fund bulk deals, FII flows, and Sector-specific news (e.g. IT, Banking)
+                    to ensure the stock aligns with smart money flow.
+                </p>
+            </div>
+
+            <div class="method-card">
+                <div class="method-icon">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div class="method-title">AI/ML Models</div>
+                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">
+                    Google Gemini Pro for pattern recognition, historical matching,
+                    and predictive modeling based on comprehensive market data.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Key Features Section -->
+    <div class="section">
+        <h2 class="section-title">
+            <i class="fa-solid fa-star"></i> Key Features
+        </h2>
+        <ul class="feature-list">
+            <li>
+                <i class="fa-solid fa-calendar"></i>
+                <span><strong>Multiple Timeframes:</strong> Daily (1-2 days), Weekly (5-7 days), Monthly (20-30
+                    days) analysis</span>
+            </li>
+            <li>
+                <i class="fa-solid fa-building"></i>
+                <span><strong>Comprehensive Coverage:</strong> Top 10 NIFTY stocks + NIFTY 50, Bank NIFTY, and
+                    SENSEX indices</span>
+            </li>
+            <li
+                style="background: linear-gradient(90deg, rgba(59, 130, 246, 0.1), transparent); border-left: 3px solid var(--accent-blue); padding-left: 1rem;">
+                <i class="fa-solid fa-newspaper" style="color: var(--accent-blue);"></i>
+                <span><strong style="color: var(--accent-blue);">AI-Driven News Analysis (USP):</strong>
+                    Advanced LLM reads 400+ daily articles from top financial sources. Breaking news (e.g. Earnings,
+                    Fraud)
+                    automatically overrides technical signals.</span>
+            </li>
+            <li>
+                <i class="fa-solid fa-list-check"></i>
+                <span><strong>41-Factor Analysis:</strong> Each prediction checks 41 distinct data points including
+                    Seasonality,
+                    Quarterly Results, and Social Momentum.</span>
+            </li>
+            <li>
+                <i class="fa-solid fa-shield"></i>
+                <span><strong>Risk Assessment:</strong> Each analysis includes risk level (LOW/MEDIUM/HIGH)
+                    classification</span>
+            </li>
+            <li>
+                <i class="fa-solid fa-percent"></i>
+                <span><strong>Probability Scores:</strong> Statistical probability of accuracy</span>
+            </li>
+            <li>
+                <i class="fa-solid fa-crosshairs"></i>
+                <span><strong>Price Targets:</strong> Specific target price ranges for each analysis</span>
+            </li>
+            <li>
+                <i class="fa-solid fa-file-lines"></i>
+                <span><strong>AI Rationale:</strong> Detailed explanation of the reasoning behind each
+                    analysis</span>
+            </li>
+            <li>
+                <i class="fa-solid fa-clock-rotate-left"></i>
+                <span><strong>Historical Tracking:</strong> Archive of past analyses with accuracy
+                    verification</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="section" style="border-left: 4px solid var(--accent-amber);">
+        <h2 class="section-title" style="color: var(--accent-amber);">
+            <i class="fa-solid fa-triangle-exclamation"></i> Important Disclaimer
+        </h2>
+        <p style="color: var(--text-secondary); line-height: 1.8;">
+            This platform is for <strong>educational and research purposes only</strong>.
+            Stock market analysis is inherently uncertain and past performance does not guarantee future
+            results.
+            Always conduct your own research and consult with financial advisors before making investment
+            decisions.
+            The creators are not responsible for any financial losses incurred.
+        </p>
+    </div>
+    </main>
+    </div>
+
+    <script src="/static/danelfin_ui.js?v=10"></script>
+    <script>
+        // Load cumulative metrics on home page
+        document.addEventListener('DOMContentLoaded', async () => {
+            const metricsPanel = document.getElementById('today-metrics-panel');
+            if (!metricsPanel) return;
+
+            try {
+                // Fetch latest cumulative metrics from database
+                const res = await fetch('/api/accuracy/latest');
+                const metrics = await res.json();
+
+                metricsPanel.style.display = 'block';
+
+                if (metrics.total_predictions > 0) {
+                    document.getElementById('today-sentiment-accuracy').textContent = `${metrics.sentiment_accuracy}%`;
+                    document.getElementById('today-price-accuracy').textContent = `${metrics.price_accuracy}%`;
+                    document.getElementById('today-sentiment-total').textContent = `${metrics.total_predictions} stocks analyzed`;
+                    document.getElementById('today-high-conf').textContent = `${metrics.high_conf_accuracy}%`;
+
+                    // Update confidence chart
+                    document.getElementById('chart-high-conf').textContent = `${metrics.high_conf_accuracy}%`;
+                    document.getElementById('chart-medium-conf').textContent = `${metrics.medium_conf_accuracy}%`;
+                    document.getElementById('chart-low-conf').textContent = `${metrics.low_conf_accuracy}%`;
+
+                    // Animate bars
+                    setTimeout(() => {
+                        document.getElementById('chart-high-bar').style.width = `${metrics.high_conf_accuracy}%`;
+                        document.getElementById('chart-medium-bar').style.width = `${metrics.medium_conf_accuracy}%`;
+                        document.getElementById('chart-low-bar').style.width = `${metrics.low_conf_accuracy}%`;
+                    }, 100);
+                } else {
+                    document.getElementById('today-sentiment-accuracy').textContent = '--';
+                    document.getElementById('today-price-accuracy').textContent = '--';
+                    document.getElementById('today-sentiment-total').textContent = 'No data yet';
+                    document.getElementById('today-high-conf').textContent = '--';
+
+                    document.getElementById('chart-high-conf').textContent = '--';
+                    document.getElementById('chart-medium-conf').textContent = '--';
+                    document.getElementById('chart-low-conf').textContent = '--';
+                }
+            } catch (e) {
+                console.error("Failed to load cumulative metrics", e);
+            }
+        });
+    </script>
+</body>
+
+</html>
+```

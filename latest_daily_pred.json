@@ -1,0 +1,9 @@
+{
+    "symbol": "Reliance Industries",
+    "rationale": "The analysis indicates a NEUTRAL stance for Reliance Industries. Core price-based technical indicators are indecisive, with RSI at 54.64 and average volume confirming a lack of momentum. The broader market context is also neutral, with the NIFTY trend flat. While there is positive sentiment from recent news regarding oil procurement and long-term AI initiatives, this is not supported by the technicals. According to the framework rules, when signals do not align and key indicators like technicals and market context are neutral, a NEUTRAL prediction with lower confidence is required. The positive news acts as a support, preventing a bearish outlook, but is insufficient to warrant a bullish call without technical confirmation.",
+    "confidence": 1,
+    "key_factors": "Neutral Technicals, Neutral Nifty Trend, Positive News Sentiment, Lack of Signal Confluence",
+    "target_date": "2025-12-31",
+    "signals_aligned": 3,
+    "sentiment_score": 7.0
+}

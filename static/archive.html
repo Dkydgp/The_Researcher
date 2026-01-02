@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive | The Researcher</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/danelfin_styles.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Navigation -->
+        <nav class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-flask"></i>
+                <span>THE <span class="highlight">RESEARCHER</span></span>
+            </div>
+
+            <div class="nav-links">
+                <a href="/daily" class="nav-item">
+                    <i class="fa-solid fa-sun"></i> Daily View
+                </a>
+                <a href="/weekly" class="nav-item">
+                    <i class="fa-solid fa-calendar-week"></i> Weekly View
+                </a>
+                <a href="/monthly" class="nav-item">
+                    <i class="fa-solid fa-calendar-days"></i> Monthly View
+                </a>
+                <a href="/blog" class="nav-item">
+                    <i class="fa-solid fa-newspaper"></i> Market Insights
+                </a>
+                <a href="/archive" class="nav-item active">
+                    <i class="fa-solid fa-clock-rotate-left"></i> Archive
+                </a>
+            </div>
+
+            <div class="refresh-container">
+                <div id="last-updated" class="last-updated" style="margin-top:0">Historical Data</div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="top-bar">
+                <div class="page-title">
+                    <h1 id="view-title">Prediction Archive</h1>
+                    <p id="view-subtitle">Review historical accuracy across all timeframes</p>
+                </div>
+            </header>
+
+            <!-- Archive Section (Main Feature) -->
+            <div id="archive-section" style="margin-top: 2rem;">
+                <div class="section-header"
+                    style="margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                    <h2><i class="fa-solid fa-magnifying-glass-chart"></i> Select Period</h2>
+                    <div style="display: flex; gap: 10px;">
+                        <select id="archive-timeframe-select"
+                            style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 8px; font-family: 'Inter';">
+                            <option value="DAILY" selected>Daily Predictions</option>
+                            <option value="WEEKLY">Weekly Predictions</option>
+                            <option value="MONTHLY">Monthly Predictions</option>
+                        </select>
+                        <select id="archive-date-select"
+                            style="background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 8px; font-family: 'Inter'; min-width: 150px;">
+                            <option value="">Loading Dates...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Performance Metrics Panel -->
+                <div id="metrics-panel" style="margin-bottom: 2rem; display: none;">
+                    <!-- Overall Accuracy Cards -->
+                    <div
+                        style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+                        <div class="card" style="text-align: center; padding: 1.5rem;">
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                                Sentiment Accuracy</div>
+                            <div id="sentiment-accuracy"
+                                style="font-size: 2rem; font-weight: 700; color: var(--accent-color);">--%</div>
+                            <div id="sentiment-total"
+                                style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">0
+                                predictions</div>
+                        </div>
+                        <div class="card" style="text-align: center; padding: 1.5rem;">
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Price
+                                Move Accuracy</div>
+                            <div id="price-accuracy" style="font-size: 2rem; font-weight: 700; color: #22c55e;">--%
+                            </div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">±0.5%
+                                tolerance</div>
+                        </div>
+                        <div class="card" style="text-align: center; padding: 1.5rem;">
+                            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">Total
+                                Predictions</div>
+                            <div id="total-predictions" style="font-size: 2rem; font-weight: 700; color: #fff;">0</div>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Analyzed
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Confidence Correlation -->
+                    <div class="card" style="padding: 1.5rem;">
+                        <h3 style="margin-bottom: 1rem; font-size: 1rem;"><i class="fa-solid fa-chart-bar"></i> Accuracy
+                            by Confidence Level</h3>
+                        <div id="confidence-chart" style="display: grid; gap: 0.75rem;">
+                            <div>
+                                <div
+                                    style="display: flex; justify-content: space-between; margin-bottom: 0.25rem; font-size: 0.85rem;">
+                                    <span>High Confidence (7-10)</span>
+                                    <span id="high-conf-accuracy" style="font-weight: 600;">--%</span>
+                                </div>
+                                <div
+                                    style="background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden;">
+                                    <div id="high-conf-bar"
+                                        style="background: #22c55e; height: 100%; width: 0%; transition: width 0.5s;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div
+                                    style="display: flex; justify-content: space-between; margin-bottom: 0.25rem; font-size: 0.85rem;">
+                                    <span>Medium Confidence (5-6)</span>
+                                    <span id="medium-conf-accuracy" style="font-weight: 600;">--%</span>
+                                </div>
+                                <div
+                                    style="background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden;">
+                                    <div id="medium-conf-bar"
+                                        style="background: #fbbf24; height: 100%; width: 0%; transition: width 0.5s;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div
+                                    style="display: flex; justify-content: space-between; margin-bottom: 0.25rem; font-size: 0.85rem;">
+                                    <span>Low Confidence (1-4)</span>
+                                    <span id="low-conf-accuracy" style="font-weight: 600;">--%</span>
+                                </div>
+                                <div
+                                    style="background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; overflow: hidden;">
+                                    <div id="low-conf-bar"
+                                        style="background: #ef4444; height: 100%; width: 0%; transition: width 0.5s;">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="archive-grid" class="cards-grid">
+                    <!-- Archive cards injected here -->
+                    <div
+                        style="color: var(--text-secondary); grid-column: 1/-1; text-align: center; padding: 4rem; background: rgba(255,255,255,0.02); border-radius: 12px; border: 1px dashed rgba(255,255,255,0.1);">
+                        <i class="fa-solid fa-arrow-up-right-dots"
+                            style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <p>Select a Timeframe and Date to verify our AI's past performance.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Logic -->
+    <script src="/static/danelfin_ui.js?v=10"></script>
+</body>
+
+</html>

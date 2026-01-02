@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Developer"
+  given-names: "Open Source"
+title: "The Researcher: Institutional-Grade AI Stock Analyst"
+version: 1.0.0
+date-released: 2026-01-02
+url: "https://github.com/Dkydgp/The_Researcher"
+preferred-citation:
+  type: software
+  authors:
+  - family-names: "Developer"
+    given-names: "Open Source"
+  title: "The Researcher: Think Tank for Stock Analysis using Gemini 3"
+  year: 2026

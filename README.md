@@ -1,6 +1,6 @@
 # 🧠 The Researcher: Think Tank for Stock Analysis
 
-> **Institutional-grade stock market predictions powered by a 6-pillar AI framework**
+> **Institutional-grade stock market analyst powered by a 6-pillar AI framework**
 
 An advanced stock market prediction system that combines **Algorithmic Analysis (RSI, SMA)**, **Social Media Momentum**, **News Sentiment**, and **Financial Theories** to generate daily predictions for top NIFTY 50 stocks.
 

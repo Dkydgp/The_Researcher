@@ -1,4 +1,4 @@
-# 📈 NIFTY-5 AI Stock Predictor
+# 🧠 The Researcher: Think Tank for Stock Analysis
 
 > **Institutional-grade stock market predictions powered by a 6-pillar AI framework**
 
